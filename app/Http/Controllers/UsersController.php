@@ -54,7 +54,6 @@ class UsersController extends Controller
         $login_user = auth()->user();
         $user_posts = $post->getUserPost($user->id);
         $user_posts_count = $post->getPostCount($user->id);
-        // dd($user->posts);
         $user_get_nices = $nice->getUserNices($user->id);
         $nices = $nice->getNices($request->ip());
 
@@ -91,7 +90,7 @@ class UsersController extends Controller
         //
         $data = $request->all();
         $validator = Validator::make($data, [
-            'name'          => ['required','unique:posts', 'string', 'max:255'],
+            'name'          => ['required', 'string', 'max:255'],
             'profile_image' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'email'         => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)]
         ]);
