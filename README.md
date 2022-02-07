@@ -16,25 +16,20 @@
  
 # 使用技術
  
-"hoge"を動かすのに必要なライブラリなどを列挙する
- 
-* huga 3.5.2
-* hogehuga 1.0.2
- 
- 
-# Usage
- 
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
- 
-```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
-```
+* PHP 8.0.13
+* Laravel 6.20.43
+* MySQL 8.0.28
+* Nginx 1.20.0
+* AWS
+    -VPC
+    -EC2
+    -Route53
+* Twitter API
+* JapanMap.js
  
  
 # システム構成図
- 
+ ![システム構成図](システム構成図.svg)
 注意点などがあれば書く
  
 
