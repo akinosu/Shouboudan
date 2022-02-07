@@ -90,7 +90,6 @@ class UsersController extends Controller
     {
         //
         $data = $request->all();
-        dd($data);
         $validator = Validator::make($data, [
             'name'          => ['required','unique:posts', 'string', 'max:255'],
             'profile_image' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
