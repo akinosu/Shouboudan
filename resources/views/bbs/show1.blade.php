@@ -33,7 +33,7 @@
             ユーザーIDと投稿者が一致しなければ削除ボタンは表示されない -->
         @if (Auth::check())
             @if (Auth::user()->id == $post->user_id) 
-                <form action="{{route('destroy', ['pref_id'=>$pref_id,'post_id'=>$post->id ,'city_id'=>$city_id])}}" method="post" class="float-right">
+                <form action="{{route('destroy', ['pref_id'=>$pref_id,'post_id'=>$post->id ,'city_id'=>$city_id, 'user_post_id'=>$user_post_id])}}" method="post" class="float-right">
                         @csrf
                         @method('delete')
                         <input type="submit" value="投稿を削除する" class="btn btn-danger" onclick='return confirm("削除しますか？\nコメントも全て削除されます。");'>

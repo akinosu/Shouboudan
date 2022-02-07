@@ -2,6 +2,11 @@
 @include('layouts.bbsheader')
 @section('content')
 <div class="container">
+    @if (session('poststatus'))
+        <div class="alert alert-success mt-4 mb-4">
+            {{ session('poststatus') }}
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-10 mb-3">
             <div class="card">

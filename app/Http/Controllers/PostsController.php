@@ -152,11 +152,16 @@ class PostsController extends Controller
             $post_id = $request->post_id;
             $city_id = $request->city_id;
             $post = Post::findOrFail($post_id);
+            $user_post_id = $request->user_post_id;
     
             $post->comments()->delete(); // ←★コメント削除実行
             $post->delete();  // ←★投稿削除実行
             
+            //マイページを見ていた場合はマイページの投稿一覧に返す
+            if($user_post_id != null){
+                return redirect()->route('users.show' , ['user_post_id'=>$user_post_id, 'user'=>auth()->user()->id])->with('poststatus', '投稿を削除しました');
+            }else{
             return redirect()->route('{pref_id?}.index', ['pref_id'=>$pref_id,'city_id'=>$city_id])->with('poststatus', '投稿を削除しました');
-       
+            }
     }
 }
