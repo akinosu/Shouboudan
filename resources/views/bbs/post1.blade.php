@@ -228,11 +228,13 @@
         <div class="col-md-4">
             <p>{{$pref_name->pref_name}}の消防団に関する最近のつぶやき</p>
             <div style="max-height: 900px; max-width:90%; overflow: scroll; background-color: white;">
+            @if ($tweets->meta->result_count != 0)
                 @foreach ($tweets->data as $tweet)
                 <blockquote class="twitter-tweet">
                 <a class="twitter-timeline" href="https://twitter.com/_/status/{{$tweet->id}}">
                 </blockquote>
                 @endforeach 
+            @endif
             </div>
         </div>
     </div>

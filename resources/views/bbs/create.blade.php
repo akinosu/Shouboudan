@@ -41,6 +41,8 @@
                         class="form-control {{ $errors->has('age') ? 'is-invalid' : '' }}"
                         @if(Auth::user() != null)
                         value="{{Auth::user()->id}}"
+                        @else
+                        value="5"
                         @endif
                     >
                 </div>
