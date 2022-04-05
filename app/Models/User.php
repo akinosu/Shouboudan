@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -37,38 +36,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts() {
+    public function posts()
+    {
         return $this->hasMany('App\Models\Post');
     }
  
-    public function nices() {
+    public function nices()
+    {
         return $this->hasMany('App\Models\Nice');
     }
-
-    // public function userProfile() {
-
-    // }
-
-    public function updateProfile(Array $params)
-    {
-        if (isset($params['profile_image'])) {
-            $file_name = $params['profile_image']->store('public/profile_image/');
-
-            $this::where('id', $this->id)
-                ->update([
-                    'name'          => $params['name'],
-                    'profile_image' => basename($file_name),
-                    'email'         => $params['email'],
-                ]);
-        } else {
-            $this::where('id', $this->id)
-                ->update([
-                    'name'          => $params['name'],
-                    'email'         => $params['email'],
-                ]); 
-        }
-
-        return;
-    }
-    
 }

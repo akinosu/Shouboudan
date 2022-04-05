@@ -2,6 +2,7 @@
 @include('layouts.bbsfooter')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,16 +15,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/japanmap.css') }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="/css/bbs/sticky-footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+  
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="styleSheet">
     @yield('pageCss')
     
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery.japan-map.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/all.js') }}"></script>
     @yield('pageScript')
 
     <!-- Fonts -->
@@ -33,7 +30,7 @@
 </head>
 
 <script>
-jQuery.noConflict();
+    jQuery.noConflict();
 (function($) {
     $(function(){
         
@@ -70,7 +67,7 @@ jQuery.noConflict();
                 ],
                 selection : "area",
                 movesIslands : true,
-                borderLineWidth: 0,
+                drawsBoxLine : false,
                 backgroundColor : "#ccffcc",
                 width: canvasWidth,
                 showsAreaName: true,
@@ -96,7 +93,7 @@ jQuery.noConflict();
                                     {code : 8, name: "九州地方",   color: "#ff9999", hoverColor: "#ffbdbd", prefectures: [40,41,42,43,44,45,46]},
                                     {code : 9, name: "沖縄",   color: "#eb98ff", hoverColor: "#f5c9ff", prefectures: [47]},
                                 ],
-                                // showsAreaName: true,
+                                
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
                                 font : "gothic",
@@ -133,7 +130,7 @@ jQuery.noConflict();
                                 ],
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
-                                // showsAreaName: true,
+                                
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -167,7 +164,7 @@ jQuery.noConflict();
                                 ],
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
-                                // showsAreaName: true,
+                                
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -200,8 +197,7 @@ jQuery.noConflict();
                                     {code : 9, name: "沖縄",   color: "#eb98ff", hoverColor: "#f5c9ff", prefectures: [47]},
                                 ],
                                 backgroundColor : "#ccffcc",
-                                    showsPrefectureName: true,
-                                // showsAreaName: true,
+                                showsPrefectureName: true,
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -235,7 +231,7 @@ jQuery.noConflict();
                                 ],
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
-                                // showsAreaName: true,
+                                
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -269,7 +265,6 @@ jQuery.noConflict();
                                 ],
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
-                                // showsAreaName: true,
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -303,7 +298,6 @@ jQuery.noConflict();
                                 ],
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
-                                // showsAreaName: true,
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -337,7 +331,6 @@ jQuery.noConflict();
                                 ],
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
-                                // showsAreaName: true,
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -371,7 +364,6 @@ jQuery.noConflict();
                                 ],
                                 backgroundColor : "#ccffcc",
                                 showsPrefectureName: true,
-                                // showsAreaName: true,
                                 font : "gothic",
                                 fontSize : 12,
                                 fontColor : "white",
@@ -408,22 +400,21 @@ jQuery.noConflict();
         function _sendData(data) {
 
             if (data.code) {
-                window.parent.location.href = "/pref/" + data.code + "/";
+                window.parent.location.href = "pref_id?pref_id=%20" + data.code + "/";
             }
-        }
-        
-        /*
-            * getパラメータを取得
-            */
-        function _getUrlParams() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
+}
+
+/*
+* getパラメータを取得
+*/
+function _getUrlParams() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) { hash=hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
         }
         
         /*
@@ -436,53 +427,58 @@ jQuery.noConflict();
 })(jQuery)
 </script>
 </head>
+
 <body>
-@yield('header')
+    @yield('header') 
+    <div class="fv position-relative">
+        <img src="{{asset('storage/img/1876390_m.jpg')}}">
 
-<div class="fv" style="position:relative;">
-    <img src="{{asset('storage/img/1876390_m.jpg')}}"  style="width:100%; height:100%; object-fit:cover; opacity:0.7; filter:brightness(85%);">
-    
-        <p class="fv-text" style="">消防団.comは消防団のクチコミが集まる、<br>移住者のためのサイトです</p>
-        <div class="Individual-wrapper-text text-nowrap" style=""><p style="">人気のエリアからクチコミを探す</p></div>
-        <div class="Individual-wrapper" style="">
+        <p class="fv-text">消防団.comは消防団のクチコミが集まる、<br>移住者のためのサイトです</p>
+        <div class="Individual-wrapper-text text-nowrap">
+            <p>人気のエリアからクチコミを探す</p>
+        </div>
+        <div class="Individual-wrapper">
             <div class="IndividualArea">
-            <div class="IndividualBox">
-                <ul class="IndivisualList">
-                <li class="IndivisualItem">
-                    <a href="{{route('{pref_id?}.index',['pref_id'=>"20"])}}"><span>長野</span>NAGANO</a>
-                </li>
-                <li class="IndivisualItem">
-                    <a href="{{route('{pref_id?}.index',['pref_id'=>"22"])}}"><span>静岡</span>SHIZUOKA</a>
-                </li>
-                <li class="IndivisualItem">
-                    <a href="{{route('{pref_id?}.index',['pref_id'=>"19"])}}"><span>山梨</span>YAMANASHI</a>
-                </li>
-                <li class="IndivisualItem">
-                    <a href="{{route('{pref_id?}.index',['pref_id'=>"1"])}}"><span>北海道</span>HOKKAIDO</a>
-                </li>
-                <li class="IndivisualItem">
-                    <a href="{{route('{pref_id?}.index',['pref_id'=>"12"])}}"><span>千葉</span>CHIBA</a>
-                </li>
-                <li class="IndivisualItem">
-                    <a href="{{route('{pref_id?}.index',['pref_id'=>"47"])}}"><span>沖縄</span>OKINAWA</a>
-                </li>
-                </ul>
-               
-            </div>
-            </div>
-    </div>
-</div>
+                <div class="IndividualBox">
+                    <ul class="IndivisualList">
+                        <li class="IndivisualItem">
+                            <a href="{{route('pref_id.index',['pref_id'=>"20"])}}"><span>長野</span>NAGANO</a>
+                        </li>
+                        <li class="IndivisualItem">
+                            <a href="{{route('pref_id.index',['pref_id'=>"22"])}}"><span>静岡</span>SHIZUOKA</a>
+                        </li>
+                        <li class="IndivisualItem">
+                            <a href="{{route('pref_id.index',['pref_id'=>"19"])}}"><span>山梨</span>YAMANASHI</a>
+                        </li>
+                        <li class="IndivisualItem">
+                            <a href="{{route('pref_id.index',['pref_id'=>"1"])}}"><span>北海道</span>HOKKAIDO</a>
+                        </li>
+                        <li class="IndivisualItem">
+                            <a href="{{route('pref_id.index',['pref_id'=>"12"])}}"><span>千葉</span>CHIBA</a>
+                        </li>
+                        <li class="IndivisualItem">
+                            <a href="{{route('pref_id.index',['pref_id'=>"47"])}}"><span>沖縄</span>OKINAWA</a>
+                        </li>
+                    </ul>
 
-<div class="map-select-section-wrapper">
-<div class="map-select-section">
-    <div class="map-select-section-text text-nowrap"><p>マップからクチコミを探す</p></div>
-    <div class="map-section-container container-fluid">
-        <div id="japan-map-back-btn-wrapper"><input type="button" value="&lt;&lt;戻る" id="japan-map-back-btn" class="btn btn-primary"/></div>
-        <div id="japan-map-container" style="padding-left:0;"></div>
+                </div>
+            </div>
+        </div>
     </div>
-</div> 
-</div>
-@yield('footer')
+
+    <div class="map-select-section-wrapper">
+        <div class="map-select-section">
+            <div class="map-select-section-text text-nowrap">
+                <p>マップからクチコミを探す</p>
+            </div>
+            <div class="map-section-container container-fluid">
+                <div id="japan-map-back-btn-wrapper"><input type="button" value="&lt;&lt;戻る" id="japan-map-back-btn"
+                        class="btn btn-primary" /></div>
+                <div id="japan-map-container"></div>
+            </div>
+        </div>
+    </div>
+    @yield('footer')
 </body>
-</html>
 
+</html>

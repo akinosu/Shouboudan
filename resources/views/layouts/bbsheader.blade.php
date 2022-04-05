@@ -1,9 +1,9 @@
 @section('header')
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" style="font-weight:bold;" href="{{ url('/index') }}">
+                <a class="navbar-brand font-weight-bold" href="{{ url('/index') }}">
                     {{ config('app.name', 'Laravel') }}
-                <br><p style="font-size:60%; margin-bottom:0; font-weight:normal;">消防団のクチコミが集まるサイト</p>
+                <br><p class="sub-title mb-0 font-weight-normal">消防団のクチコミが集まるサイト</p>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -43,7 +43,7 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form class="d-none" id="logout-form" action="{{ route('logout') }}" method="POST">
                                         @csrf
                                     </form>
                                 </div>

@@ -4,13 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\Post;
-use App\Models\Nice;
 use App\Models\user;
-use Validator;
+use App\Services\PostService;
+use App\Services\NiceService;
+use App\Services\CityService;
+use App\Services\UserService;
+use Illuminate\Support\Facades\Validator;
+use Exception;
 
 class UsersController extends Controller
 {
+    public function __construct(PostService $postService, NiceService $niceService, CityService $cityService, UserService $userService)
+    {
+        $this->postService = $postService;
+        $this->niceService = $niceService;
+        $this->cityService = $cityService;
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,22 +59,27 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user, Post $post, Nice $nice)
+    public function show(Request $request, User $user)
     {
-        //
-        $login_user = auth()->user();
-        $user_posts = $post->getUserPost($user->id);
-        $user_posts_count = $post->getPostCount($user->id);
-        $user_get_nices = $nice->getUserNices($user->id);
-        $nices = $nice->getNices($request->ip());
+        try {
+            $login_user = auth()->user();
+            $user_posts = $this->postService->getUserPost($user->id);
+            $user_posts_count = $this->postService->getPostCount($user->id);
+            $user_get_nices = $this->niceService->getUserNices($user->id);
+            $nices = $this->niceService->getNiceSearchIP($request);
 
-        return view('users.show', [
+            return view('users.show', [
             'user'               => $user,
             'user_posts'         => $user_posts,
             'user_posts_count'   => $user_posts_count,
             'user_get_nices'     => $user_get_nices,
             'nices'     => $nices,
         ]);
+        } catch (Exception $e) {
+            report($e);
+            echo "エラーが発生しました。";
+            return;
+        }
     }
 
     /**
@@ -87,17 +103,22 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
-        $data = $request->all();
-        $validator = Validator::make($data, [
+        try {
+            $data = $request->all();
+            $validator = Validator::make($data, [
             'name'          => ['required', 'string', 'max:255'],
             'profile_image' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'email'         => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)]
         ]);
-        $validator->validate();
-        $user->updateProfile($data);
-
-        return redirect('users/'.$user->id);
+            
+            $validator->validate();
+            $this->userService->updateProfile($data);
+            return redirect('users/'.$user->id);
+        } catch (Exception $e) {
+            report($e);
+            echo "エラーが発生しました。";
+            return;
+        }
     }
 
     /**

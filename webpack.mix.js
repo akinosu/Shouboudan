@@ -11,7 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .js('resources/js/jquery-3.6.0.min.js', 'public/js')
-   .js('resources/js/jquery.japan-map.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js(['resources/js/app.js', 
+         'resources/js/bootstrap.js', 
+         'resources/js/jquery-3.6.0.min.js',
+         'resources/js/jquery.japan-map.js'],
+         'public/js/all.js')
+   .sass('resources/sass/app.scss', 'public/css')
+   .styles(['resources/css/app.css',
+         'resources/css/japanmap.css',
+         'resources/css/bbs/sticky-footer.css'], 
+         'public/css/all.css')
+   .version();

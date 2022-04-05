@@ -61,8 +61,8 @@
                                 @endif
             
                                 <div class="ml-2 d-flex flex-column flex-grow-1">
-                                    <p class="mb-0 text-nowrap"><a href="{{ route('{pref_id?}.index', ['pref_id'=>$user_post->city->pref_id]) }}" class="mb-0">{{ $user_post->city->pref_name }}</a>
-                                    /<a href="{{ route('{pref_id?}.index', ['city_id'=>$user_post->city->id,'pref_id'=>$user_post->city->pref_id]) }}" class="mb-0">{{ $user_post->city->city_name }}</a>のクチコミ</p>
+                                    <p class="mb-0 text-nowrap"><a href="{{ route('pref_id.index', ['pref_id'=>$user_post->city->pref_id]) }}" class="mb-0">{{ $user_post->city->pref_name }}</a>
+                                    /<a href="{{ route('pref_id.index', ['city_id'=>$user_post->city->id,'pref_id'=>$user_post->city->pref_id]) }}" class="mb-0">{{ $user_post->city->city_name }}</a>のクチコミ</p>
                                     <div class="d-flex flex-grow-1">
                                         <a href="{{url('users/' .$user_post->user_id)}}" class="mb-0 text-nowrap">{{ $user_post->user->name }}</a>
                                         <p class="mb-0 text-secondary text-nowrap">
@@ -85,7 +85,7 @@
                             </div>
                             <div class="ml-5 d-flex flex-column flex-grow-1" >
                             <p class="mb-0 text-secondary text-nowrap mb-1">
-                            <span class="text-white bg-primary" style="padding:1.5px;">居住期間</span>
+                            <span class="text-white bg-primary title-label">居住期間</span>
                                 @if ($user_post->end != null)
                                     @if ($user_post->start != null)
                                         {{$user_post->start}}年
@@ -103,7 +103,7 @@
                                 @endif
 
                                 <p class="mb-0 text-secondary text-nowrap">
-                                <span class="text-white bg-primary" style="padding:1.5px;">地域との関係</span>
+                                <span class="text-white bg-primary title-label">地域との関係</span>
                                     @if ($user_post->immigrant === 0)
                                         出身者
                                         @else
@@ -115,7 +115,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">
-                             <h5><a href="{{ route('show' ,['post_id'=>$user_post->id, 'pref_id'=>$user_post->city->pref_id, 'city_id'=>$user_post->city_id, 'user_post_id'=>$user_post->user_id]) }}">{{ $user_post->subject }}</a></h5>
+                             <h5><a href="{{ route('pref_id.show' ,['post_id'=>$user_post->id, 'pref_id'=>$user_post->city->pref_id, 'city_id'=>$user_post->city_id, 'user_post_id'=>$user_post->user_id]) }}">{{ $user_post->subject }}</a></h5>
                             </div>
                             {{ $user_post->message }}
                         </div>
@@ -133,15 +133,15 @@
                             </div>
                             @endif
                             <div class="mr-3 d-flex align-items-center">
-                                <a href="{{ route('show_comment' ,['post_id'=>$user_post->id, 'pref_id'=>$user_post->city->pref_id, 'city_id'=>$user_post->city_id, 'user_post_id'=>$user_post->user_id,'comment'=>'#comment']) }}"><i class="far fa-comment fa-fw fa-lg"></i></a>
+                                <a href="{{ route('show_comment' ,['post_id'=>$user_post->id, 'pref_id'=>$user_post->city->pref_id, 'city_id'=>$user_post->city_id, 'user_post_id'=>$user_post->user_id, 'comment'=>'#comment']) }}"><i class="far fa-comment fa-fw fa-lg"></i></a>
                                 <p class="mb-0 text-secondary">{{ count($user_post->comments) }}</p>
                             </div>
                             <div class="d-flex align-items-center">
                                     <!-- $nice(既にipで抽出済)を$user_post_idのみ抽出し配列にし、$user_post->idの値がその中にあるかどうかの真偽式 -->
                                 @if (!in_array($user_post->id, array_column($nices->toArray(), 'post_id'), TRUE))
-                                    <a class="far fa-heart fa-fw fa-lg" style="text-decoration: none;" href="{{ url('pref/'.$user_post->city->pref_id.'/nice/'.$user_post->id) }}" class="mb-0"></a>
+                                    <a class="far fa-heart fa-fw fa-lg text-decoration-none" href="{{ route('nice', ['post_id'=>$user_post->id]) }}" class="mb-0"></a>
                                 @else
-                                    <a class="fas fa-heart fa-fw fa-lg" style="text-decoration: none;" href="{{ url('pref/'.$user_post->city->pref_id.'/unnice/'.$user_post->id) }}" class="mb-0"></a>
+                                    <a class="fas fa-heart fa-fw fa-lg text-decoration-none" href="{{ route('unnice', ['post_id'=>$user_post->id]) }}" class="mb-0"></a>
                                 @endif
                                 <p class="mb-0 text-secondary">{{ count($user_post->nices) }}</p>
                             </div>
